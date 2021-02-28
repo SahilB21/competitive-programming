@@ -1,5 +1,14 @@
 #include <bits/stdc++.h>
 
+bool in_sub_array(int a, std::vector<int> v, int index_2) {
+  for (int i = 0; i < v.size(); i++) {
+    if (v[i] == a && i <= index_2) {
+      return true;
+    }
+  }
+  return false;
+}
+
 int main(int argc, char *argv[]) {
   int n;
   std::cin >> n;
@@ -10,23 +19,21 @@ int main(int argc, char *argv[]) {
     petals.push_back(num);
   }
   int final_average = 0;
-
   final_average += n;
-  std::pair<int, int> adjacent_nums;
-  for (int j = 0; j < n; j++) {
-    adjacent_nums.first = petals[j];
-    adjacent_nums.second = petals[j+1];
-    if (adjacent_nums.first == adjacent_nums.second) {
-      final_average += 1;
+
+  for (int t = 0; t < petals.size(); t++) {
+    std::vector<int> sub_vector;
+    for (int j = t; j < petals.size(); j++) {
+      sub_vector.push_back(petals[j]);
     }
-  }
-  int triple_adjacent_nums[3] = {0, 0, 0};
-  for (int k = 0; k < n; k++) {
-    int temp_average = 0;
-    triple_adjacent_nums[0] = petals[k];
-    triple_adjacent_nums[1] = petals[k+1];
-    triple_adjacent_nums[2] = petals[k+2];
-    std::accumulate(triple_adjacent_nums, sizeof(triple_adjacent_nums), temp_average)
+    int temp_sum = 0;
+    temp_sum += sub_vector[0];
+    for (int k = 1; k < sub_vector.size(); k++) {
+      temp_sum += sub_vector[k];
+      if (temp_sum % k == 0 && in_sub_array(temp_sum/k, sub_vector, k)) {
+        final_average += 1;
+      }
+    }
   }
 
   std::cout << final_average << std::endl;

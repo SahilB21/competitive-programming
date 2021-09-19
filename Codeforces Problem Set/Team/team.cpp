@@ -1,4 +1,4 @@
-#include </Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/bits/stdc++.h>
+#include <bits/stdc++.h>
 
 int main(int argc, char *argv[]) {
   int problems, person1, person2, person3;
